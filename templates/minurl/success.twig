@@ -1,0 +1,20 @@
+{% extends 'cover.twig' %}
+
+{% block siteTitle %}Minurl - The modern url shorten service.{% endblock %}
+
+{% block main_body %}
+   <div id="success-wrap" class="row">
+       <h1>Create Successfully</h1>
+       <h3>Here is your short URL</h3>
+       <div class="row">
+           <div class="col-md-8 col-md-offset-2">
+               <div class="input-group">
+                <input type="text" class="form-control input-lg" disabled value="{{ uri.base.full }}{{ url.uid }}" style="cursor: pointer"/>
+                   <span class="input-group-btn">
+                    <button class="btn btn-primary btn-lg" type="button"><span class="glyphicon glyphicon-check"></span> Copy</button>
+                </span>
+               </div>
+           </div>
+       </div>
+   </div>
+{% endblock %}

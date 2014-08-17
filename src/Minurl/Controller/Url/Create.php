@@ -73,11 +73,13 @@ class Create extends AbstractController
 	/**
 	 * toResult
 	 *
+	 * @param string $uid
+	 *
 	 * @return  void
 	 */
-	protected function toResult()
+	protected function toResult($uid)
 	{
-		$this->app->redirect($this->app->get('uri.base.path') . '/success');
+		$this->app->redirect($this->app->get('uri.base.path') . 'success/' . $uid);
 	}
 }
  
