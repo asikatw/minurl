@@ -1,0 +1,41 @@
+{% extends 'html.twig' %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ uri.base.path }}media/css/acme/cover.css" />
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block body %}
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner text-center">
+                    <h3 class="masthead-brand">MinURL</h3>
+                    {#<ul class="nav masthead-nav">#}
+                        {#<li><a href="{{ uri.base.path }}">Home</a></li>#}
+                        {#<li class="active"><a href="#">Cover</a></li>#}
+                    {#</ul>#}
+                </div>
+            </div>
+
+            <div class="message">
+                {{ helper.view.showFlash(flash)|raw }}
+            </div>
+
+            <div class="inner cover">
+               {% block main_body %}{% endblock %}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block copyright %}{% endblock %}

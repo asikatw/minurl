@@ -1,3 +1,2 @@
-'/': 'Acme\Controller\Page\'
-'page': 'Acme\Controller\Page\'
-'cover': 'Acme\Controller\Cover\'
+'/': 'Minurl\Controller\Url\'
+':id': 'Minurl\Controller\Gate\'
