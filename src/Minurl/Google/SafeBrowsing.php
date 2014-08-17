@@ -39,7 +39,7 @@ class SafeBrowsing
 
 		$uri->setQuery($queries);
 
-		$http = HttpFactory::getHttp();
+		$http = HttpFactory::getHttp(null, 'Curl');
 
 		$response = $http->get($uri);
 
