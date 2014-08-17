@@ -39,6 +39,12 @@
 	background-color: #999;
 }
 
+/* Success */
+.success-go-button-wrap
+{
+	margin-top: 30px;
+}
+
 /* Prwview */
 .preview-go-button-wrap
 {

@@ -2,7 +2,32 @@
 
 {% block siteTitle %}Minurl - Create URL success.{% endblock %}
 
+{% block script %}
+    {{ parent() }}
+    <script src="{{ uri.media.path }}js/ZeroClipboard.min.js"></script>
+{% endblock %}
+
 {% block main_body %}
+    <script>
+        jQuery(document).ready(function($)
+        {
+            var client = new ZeroClipboard( document.getElementById("copy-button") );
+
+            client.on( "ready", function( readyEvent ) {
+                // alert( "ZeroClipboard SWF is ready!" );
+
+                client.on( "aftercopy", function( event ) {
+
+                    var $this = $(event.target);
+
+                    $this.removeClass('btn-primary').addClass('btn-info');
+                    $this.html('<span class="glyphicon glyphicon-ok"></span> Copied');
+
+                    console.log('Check copied: '  + event.data["text/plain"]);
+                } );
+            } );
+        });
+    </script>
    <div id="success-wrap" class="row">
        <h1>Create Successfully</h1>
        <h3>Here is your short URL</h3>
@@ -11,9 +36,18 @@
                <div class="input-group">
                 <input type="text" class="form-control input-lg  url-input" disabled value="{{ uri.base.full }}{{ path }}"/>
                    <span class="input-group-btn">
-                    <button class="btn btn-primary btn-lg" type="button"><span class="glyphicon glyphicon-check"></span> Copy</button>
+                    <button id="copy-button" class="btn btn-primary btn-lg" type="button"
+                            data-clipboard-text="{{ uri.base.full }}{{ path }}"><span class="glyphicon glyphicon-check"></span> Copy</button>
                 </span>
                </div>
+           </div>
+       </div>
+
+       <div class="success-go-button-wrap row">
+           <div class="col-md-6 col-md-offset-3">
+               <a class="btn btn-success btn-lg btn-block" href="{{ uri.base.full }}{{ path }}">
+                   GO!
+               </a>
            </div>
        </div>
    </div>
