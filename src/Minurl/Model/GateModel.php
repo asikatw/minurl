@@ -74,6 +74,8 @@ class GateModel extends Model
 		$lastChecked = new DateTime($data->safe_checked);
 		$newTime = new DateTime;
 
+		$newTime->modify('+3 day');
+
 		$diff = $newTime->diff($lastChecked)->format('%R');
 
 		if ($data->safe_checked == '0000-00-00 00:00:00' || $diff == '-')
