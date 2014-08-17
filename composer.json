@@ -1,0 +1,19 @@
+{
+	"name": "asika/formosa",
+	"description": "A light framework named by Taiwan.",
+	"homepage": "https://github.com/asika32764/formosa",
+	"license": "GNU Lesser General Public License",
+	"minimum-stability": "dev",
+	"require" : {
+		"asika/formosa-core" : "dev-staging",
+		"robmorgan/phinx": "*"
+	},
+	"require-dev" : {
+		"filp/whoops": "1.*"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"" : "src/"
+		}
+	}
+}

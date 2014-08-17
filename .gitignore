@@ -1,0 +1,11 @@
+# System
+.*
+!.gitignore
+/www/.htaccess
+
+#config
+/etc/config.yml
+
+# Composer
+/vendor
+composer.lock
