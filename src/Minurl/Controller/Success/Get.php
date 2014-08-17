@@ -9,7 +9,7 @@
 namespace Minurl\Controller\Success;
 
 use Formosa\Utilities\Queue\Priority;
-use Formosa\View\TwigHtmlView;
+use Minurl\View\Url\SuccessHtmlView;
 use Windwalker\Controller\AbstractController;
 use Windwalker\DataMapper\DataMapper;
 
@@ -34,7 +34,7 @@ class Get extends AbstractController
 
 		$data = (new DataMapper('urls'))->findOne(array('uid' => $uid));
 
-		$view = new TwigHtmlView(array('url' => $data), Priority::createQueue(FORMOSA_TEMPLATE . '/minurl'));
+		$view = new SuccessHtmlView(array('url' => $data), Priority::createQueue(FORMOSA_TEMPLATE . '/minurl'));
 
 		return $view->setLayout('success')->render();
 	}

@@ -8,11 +8,15 @@
 
 namespace Minurl\Model;
 
+use Formosa\Factory;
 use Formosa\Model\Model;
 use Minurl\Helper\Base62Helper;
 use Windwalker\Data\Data;
+use Windwalker\Database\Driver\DatabaseDriver;
 use Windwalker\DataMapper\DataMapper;
 use Windwalker\Date\DateTime;
+use Windwalker\Model\AbstractModel;
+use Windwalker\Registry\Registry;
 
 /**
  * The UrlModel class.
@@ -22,6 +26,26 @@ use Windwalker\Date\DateTime;
 class UrlModel extends Model
 {
 	/**
+	 * Property mapper.
+	 *
+	 * @var  \Windwalker\DataMapper\DataMapper
+	 */
+	protected $mapper;
+
+	/**
+	 * Class init.
+	 *
+	 * @param Registry       $state
+	 * @param DatabaseDriver $db
+	 */
+	public function __construct(Registry $state = null, DatabaseDriver $db = null)
+	{
+		parent::__construct($state, $db);
+
+		$this->mapper = new DataMapper('urls');
+	}
+
+	/**
 	 * save
 	 *
 	 * @param string $data
@@ -30,18 +54,28 @@ class UrlModel extends Model
 	 */
 	public function save($data)
 	{
-		$mapper = new DataMapper('urls');
-
-		$data = $mapper->createOne($data);
+		$data = $this->mapper->createOne($data);
 
 		if ($data->id)
 		{
 			$data->uid = Base62Helper::encode($data->id);
 
-			$mapper->updateOne($data, 'id');
+			$this->mapper->updateOne($data, 'id');
 		}
 
 		return true;
+	}
+
+	/**
+	 * checkAlias
+	 *
+	 * @param Data $data
+	 *
+	 * @return  mixed
+	 */
+	public function aliasExists(Data $data)
+	{
+		return !$this->mapper->findOne(array('alias' => trim($data->alias)))->isNull();
 	}
 
 	/**
@@ -53,14 +87,17 @@ class UrlModel extends Model
 	 */
 	public function getMatchedUrl(Data $data)
 	{
-		$mapper = new DataMapper('urls');
+		if ($data->password || $data->custom || $data->expired || $data->preview)
+		{
+			return false;
+		}
 
 		$conds = array(
 			'url' => $data->url,
 			'expired > ' . $this->db->q((string) new DateTime) . ' OR expired = "0000-00-00 00:00:00"'
 		);
 
-		return $mapper->findOne($conds, 'id DESC')->uid;
+		return $this->mapper->findOne($conds, 'id DESC')->uid;
 	}
 }
  

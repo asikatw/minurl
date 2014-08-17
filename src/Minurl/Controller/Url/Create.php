@@ -43,6 +43,11 @@ class Create extends AbstractController
 				throw new \RuntimeException('No URL');
 			}
 
+			if ($model->aliasExists($data))
+			{
+				throw new \RuntimeException('This custom URL has been used.');
+			}
+
 			if ($uid = $model->getMatchedUrl($data))
 			{
 				$this->toResult($uid);
