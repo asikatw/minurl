@@ -8,21 +8,20 @@
 
 namespace Minurl\Controller\Gate;
 
+use Formosa\Application\WebApplication;
 use Formosa\Utilities\Queue\Priority;
 use Minurl\Helper\PasswordHelper;
 use Minurl\Model\GateModel;
-use Minurl\Model\UrlModel;
 use Minurl\View\Gate\PasswordHtmlView;
 use Minurl\View\Gate\PreviewHtmlView;
-use Windwalker\Application\AbstractWebApplication;
 use Windwalker\Controller\AbstractController;
 use Windwalker\Data\Data;
 
 /**
  * The Get class.
  *
- * @property AbstractWebApplication $app
- * 
+ * @property WebApplication app
+ *
  * @since  {DEPLOY_VERSION}
  */
 class Get extends AbstractController
@@ -33,6 +32,13 @@ class Get extends AbstractController
 	 * @var Data
 	 */
 	protected $data;
+
+	/**
+	 * Property model.
+	 *
+	 * @var GateModel
+	 */
+	protected $model;
 
 	/**
 	 * Execute the controller.
@@ -46,7 +52,7 @@ class Get extends AbstractController
 	{
 		$uid = $this->input->get('uid');
 
-		$model = new GateModel;
+		$this->model = $model = new GateModel;
 
 		$this->data = $data = $model->getUrl($uid);
 
@@ -102,7 +108,9 @@ class Get extends AbstractController
 	 */
 	protected function renderPreview()
 	{
-		$view = new PreviewHtmlView(array('url' => $this->data), Priority::createQueue(FORMOSA_TEMPLATE . '/minurl/gate'));
+		$safe = $this->model->checkSafe($this->data);
+
+		$view = new PreviewHtmlView(array('url' => $this->data, 'safe' => $safe), Priority::createQueue(FORMOSA_TEMPLATE . '/minurl/gate'));
 
 		return $view->setLayout('preview')->render();
 	}

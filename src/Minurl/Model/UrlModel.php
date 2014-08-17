@@ -8,14 +8,12 @@
 
 namespace Minurl\Model;
 
-use Formosa\Factory;
 use Formosa\Model\Model;
 use Minurl\Helper\Base62Helper;
 use Windwalker\Data\Data;
 use Windwalker\Database\Driver\DatabaseDriver;
 use Windwalker\DataMapper\DataMapper;
 use Windwalker\Date\DateTime;
-use Windwalker\Model\AbstractModel;
 use Windwalker\Registry\Registry;
 
 /**
@@ -75,6 +73,11 @@ class UrlModel extends Model
 	 */
 	public function aliasExists(Data $data)
 	{
+		if (!$data->alias)
+		{
+			return false;
+		}
+
 		return !$this->mapper->findOne(array('alias' => trim($data->alias)))->isNull();
 	}
 

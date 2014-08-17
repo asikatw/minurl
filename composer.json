@@ -7,7 +7,7 @@
 	"require" : {
 		"asika/formosa-core" : "dev-staging",
 		"robmorgan/phinx": "*",
-		"nixsolutions/yandex-php-library": "dev-master"
+		"joomla/http": "1.*"
 	},
 	"require-dev" : {
 		"filp/whoops": "1.*"

@@ -33,7 +33,7 @@ class MinurlInit extends AbstractMigration
 			->addColumn('expired', 'datetime')
 			->addColumn('state', 'integer')
 			->addColumn('safe', 'boolean')
-			->addColumn('safe_note', 'text')
+			->addColumn('safe_checked', 'datetime')
 			->addColumn('params', 'text')
 			->save();
     }

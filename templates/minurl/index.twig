@@ -2,7 +2,27 @@
 
 {% block siteTitle %}Minurl - The modern url shorten service.{% endblock %}
 
+{% block style %}
+{{ parent() }}
+    <link rel="stylesheet" href="{{ uri.media.path }}js/pickday/css/pikaday.css" />
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script src="{{ uri.media.path }}js/moment.js"></script>
+    <script src="{{ uri.media.path }}js/pickday/pikaday.js"></script>
+{% endblock %}
+
 {% block main_body %}
+   <script>
+       jQuery(document).ready(function($)
+       {
+           var picker = new Pikaday({
+               field: document.getElementById('expiredTime'),
+               format: 'YYYY-MM-DD'
+           });
+       });
+   </script>
    <div id="index-form" class="row">
        <form action="{{ uri.base.path }}" method="post" id="entryForm" name="entryForm">
            <h1>Make Your URL Shorter</h1>

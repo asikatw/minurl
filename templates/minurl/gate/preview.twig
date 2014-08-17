@@ -20,9 +20,26 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
+                {% if (safe) %}
                 <a class="btn btn-primary btn-lg btn-block" href="{{ url.url }}">
                     GO!
                 </a>
+                {% else %}
+                <div class="alert alert-danger">
+                    <h4>Danger: Malware Ahead!</h4>
+                    <p>This page has been reported to Google that it contains malware.</p>
+                    <a class="btn btn-danger btn-block" href="{{ url.url }}">
+                        I still want to GO!
+                    </a>
+                </div>
+
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="text-muted">
+                Safe Browsing Powered by <a href="http://google.com"><img src="https://www.google.com/images/logos/google_logo_41.png" alt="Google" width="75px"/></a>
             </div>
         </div>
     </div>
