@@ -8,7 +8,6 @@
 
 namespace Minurl\Controller\Url;
 
-use Joomla\Http\HttpFactory;
 use Joomla\Uri\Uri;
 use Minurl\Helper\PasswordHelper;
 use Minurl\Model\UrlModel;

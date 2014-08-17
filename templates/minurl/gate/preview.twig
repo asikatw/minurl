@@ -1,6 +1,14 @@
 {% extends 'cover.twig' %}
 
-{% block siteTitle %}Minurl - Check this URL.{% endblock %}
+{% block siteTitle %}{{ meta.title }} | Minur.co{% endblock %}
+
+{% block meta %}
+    <meta property="og:url" content="{{ uri.base.full }}">
+    <meta property="og:site_name" content="Minur.co">
+    <meta property="og:title" content="{{ meta.title }} | Minur.co">
+    <meta property="og:description" content="{{ meta.desc }}">
+    <meta property="og:image" content="http://s.wordpress.com/mshots/v1/{{ url.url|url_encode }}">
+{% endblock %}
 
 {% block main_body %}
     <div id="preview-wrap" class="row">

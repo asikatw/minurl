@@ -9,12 +9,15 @@
 namespace Minurl\Model;
 
 use Formosa\Model\Model;
+use Joomla\Http\HttpFactory;
 use Minurl\Helper\Base62Helper;
+use PHPHtmlParser\Dom;
 use Windwalker\Data\Data;
 use Windwalker\Database\Driver\DatabaseDriver;
 use Windwalker\DataMapper\DataMapper;
 use Windwalker\Date\DateTime;
 use Windwalker\Registry\Registry;
+use Windwalker\Utilities\String\String;
 
 /**
  * The UrlModel class.
@@ -52,6 +55,16 @@ class UrlModel extends Model
 	 */
 	public function save($data)
 	{
+		// Get meta
+		$meta = $this->getMeta($data->url);
+
+		$data->params = new Registry;
+
+		$data->params['meta'] = $meta;
+
+		$data->params = (string) $data->params;
+
+		// Do store
 		$data = $this->mapper->createOne($data);
 
 		if ($data->id)
@@ -102,6 +115,42 @@ class UrlModel extends Model
 		);
 
 		return $this->mapper->findOne($conds, 'id DESC')->uid;
+	}
+
+	public function getMeta($url)
+	{
+		$meta = array();
+
+		$http = HttpFactory::getHttp(null, 'Curl');
+
+		$page = $http->get($url)->body;
+
+		$dom = new Dom;
+
+		$dom->load($page);
+
+		$title = $dom->find('title');
+
+		if (!empty($title[0]))
+		{
+			$meta['title'] = $title[0]->text;
+		}
+
+		$desc = $dom->find('meta[property=og:description]');
+
+		if (empty($desc[0]))
+		{
+			$desc = $dom->find('meta[name=description]');
+		}
+
+		if (!empty($desc[0]))
+		{
+			$meta['desc'] = $desc[0]->getAttribute('content');
+
+			String::substr($meta['desc'], 0, 150);
+		}
+
+		return $meta;
 	}
 }
  

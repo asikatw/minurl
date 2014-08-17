@@ -9,6 +9,7 @@
 namespace Minurl\View\Gate;
 
 use Formosa\View\TwigHtmlView;
+use Windwalker\Registry\Registry;
 
 /**
  * The PreviewHtmlView class.
@@ -26,7 +27,9 @@ class PreviewHtmlView extends TwigHtmlView
 	 */
 	protected function prepareData($data)
 	{
+		$data->params = new Registry($data->url->params);
 
+		$data->meta = $data->params['meta'];
 	}
 }
  

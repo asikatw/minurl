@@ -1,6 +1,14 @@
 {% extends 'cover.twig' %}
 
-{% block siteTitle %}Minurl - The modern url shorten service.{% endblock %}
+{% block siteTitle %}Another modern URL shorten service. | Minur.co{% endblock %}
+
+{% block meta %}
+    <meta property="og:url" content="{{ uri.base.full }}">
+    <meta property="og:site_name" content="Minur.co">
+    <meta property="og:title" content="Minur.co | Another modern & secure URL shorten service.">
+    <meta property="og:description" content="Another modern & secure URL shorten service.">
+    <meta property="og:image" content="{{ uri.media.full }}images/ogimg.jpg">
+{% endblock %}
 
 {% block style %}
 {{ parent() }}
