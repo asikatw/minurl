@@ -69,14 +69,6 @@ class Create extends AbstractController
 
 			// Do save
 			$model->save($data);
-
-			// Pre load thumbnail
-			if ($data->preview)
-			{
-				$http = HttpFactory::getHttp();
-
-				$http->get('http://s.wordpress.com/mshots/v1/' . urlencode($data->url));
-			}
 		}
 		catch (\Exception $e)
 		{
