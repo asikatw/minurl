@@ -14,9 +14,12 @@ use Minurl\Helper\PasswordHelper;
 use Minurl\Model\UrlModel;
 use Windwalker\Controller\AbstractController;
 use Windwalker\Data\Data;
+use Windwalker\IO\Input;
 
 /**
  * The Get class.
+ *
+ * @property Input input
  * 
  * @since  {DEPLOY_VERSION}
  */
@@ -107,6 +110,7 @@ class Create extends AbstractController
 	 *
 	 * @param string $url
 	 *
+	 * @throws \RuntimeException
 	 * @return  string
 	 */
 	protected function normalise($url)
@@ -116,6 +120,11 @@ class Create extends AbstractController
 		if (!$uri->getScheme())
 		{
 			$uri->setScheme('http');
+		}
+
+		if (!$uri->getHost())
+		{
+			throw new \RuntimeException('Not a valid URL');
 		}
 
 		return (string) $uri;

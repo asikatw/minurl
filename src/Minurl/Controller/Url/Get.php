@@ -29,6 +29,19 @@ class Get extends AbstractController
 	 */
 	public function execute()
 	{
+		$create = $this->input->getString('create');
+
+		if ($create)
+		{
+			$this->input->set('entry', array('url' => $create));
+
+			$ctrl = new Create($this->input, $this->app);
+
+			$ctrl->execute();
+
+			return null;
+		}
+
 		$view = new UrlHtmlView(null, Priority::createQueue(FORMOSA_TEMPLATE . '/minurl'));
 
 		return $view->setLayout('index')->render();

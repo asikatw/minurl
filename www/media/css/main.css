@@ -11,6 +11,11 @@
 	cursor: auto;
 }
 
+.message-wrap .alert p
+{
+	font-size: 1.3em;
+}
+
 /* INDEX */
 .form-buttons
 {
