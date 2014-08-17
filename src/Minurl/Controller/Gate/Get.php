@@ -11,9 +11,12 @@ namespace Minurl\Controller\Gate;
 use Formosa\Utilities\Queue\Priority;
 use Minurl\Helper\PasswordHelper;
 use Minurl\Model\GateModel;
+use Minurl\Model\UrlModel;
 use Minurl\View\Gate\PasswordHtmlView;
+use Minurl\View\Gate\PreviewHtmlView;
 use Windwalker\Application\AbstractWebApplication;
 use Windwalker\Controller\AbstractController;
+use Windwalker\Data\Data;
 
 /**
  * The Get class.
@@ -24,6 +27,13 @@ use Windwalker\Controller\AbstractController;
  */
 class Get extends AbstractController
 {
+	/**
+	 * Property data.
+	 *
+	 * @var Data
+	 */
+	protected $data;
+
 	/**
 	 * Execute the controller.
 	 *
@@ -38,7 +48,7 @@ class Get extends AbstractController
 
 		$model = new GateModel;
 
-		$data = $model->getUrl($uid);
+		$this->data = $data = $model->getUrl($uid);
 
 		// Back to root
 		if ($data->isNull())
@@ -46,35 +56,64 @@ class Get extends AbstractController
 			$this->app->redirect($this->app->get('uri.base.path'));
 		}
 
-		if ($data->password)
+		if ($data->password && $view = $this->renderPassword())
 		{
-			$pass = $this->input->getString('password');
-
-			if ($pass)
-			{
-				if (PasswordHelper::verify($pass, $data->password))
-				{
-					$this->goTarget($data->url);
-				}
-				else
-				{
-					$this->app->addFlash('Password not matched', 'warning');
-				}
-			}
-
-			$view = new PasswordHtmlView(null, Priority::createQueue(FORMOSA_TEMPLATE . '/minurl/gate'));
-
-			return $view->setLayout('password')->render();
+			return $view;
 		}
 
-		if ($data->preview)
+		if ($data->preview && $preview = $this->renderPreview())
 		{
-
+			return $preview;
 		}
 
 		$this->goTarget($data->url);
 	}
 
+	/**
+	 * renderPassword
+	 *
+	 * @return  string
+	 */
+	protected function renderPassword()
+	{
+		$pass = $this->input->getString('password');
+
+		if ($pass)
+		{
+			if (PasswordHelper::verify($pass, $this->data->password))
+			{
+				return false;
+			}
+			else
+			{
+				$this->app->addFlash('Password not matched', 'warning');
+			}
+		}
+
+		$view = new PasswordHtmlView(null, Priority::createQueue(FORMOSA_TEMPLATE . '/minurl/gate'));
+
+		return $view->setLayout('password')->render();
+	}
+
+	/**
+	 * renderPreview
+	 *
+	 * @return  string
+	 */
+	protected function renderPreview()
+	{
+		$view = new PreviewHtmlView(array('url' => $this->data), Priority::createQueue(FORMOSA_TEMPLATE . '/minurl/gate'));
+
+		return $view->setLayout('preview')->render();
+	}
+
+	/**
+	 * goTarget
+	 *
+	 * @param string $url
+	 *
+	 * @return  void
+	 */
 	protected function goTarget($url)
 	{
 		$this->app->redirect($url);

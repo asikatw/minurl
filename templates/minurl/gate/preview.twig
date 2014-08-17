@@ -1,0 +1,29 @@
+{% extends 'cover.twig' %}
+
+{% block siteTitle %}Minurl - Check this URL.{% endblock %}
+
+{% block main_body %}
+    <div id="preview-wrap" class="row">
+        <h1>URL Preview</h1>
+
+        <div class="preview-img-wrap row">
+            <div class="col-md-8 col-md-offset-2">
+                <img style="max-width: 100%; border-radius: 5px" src="http://s.wordpress.com/mshots/v1/{{ url.url|url_encode }}" alt="Preview" />
+            </div>
+        </div>
+        
+        <h3>The Original URL</h3>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control input-lg" disabled value="{{ url.url }}" style="cursor: pointer"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <a class="btn btn-primary btn-lg btn-block" href="{{ url.url }}">
+                    GO!
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

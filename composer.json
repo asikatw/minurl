@@ -6,7 +6,8 @@
 	"minimum-stability": "dev",
 	"require" : {
 		"asika/formosa-core" : "dev-staging",
-		"robmorgan/phinx": "*"
+		"robmorgan/phinx": "*",
+		"nixsolutions/yandex-php-library": "dev-master"
 	},
 	"require-dev" : {
 		"filp/whoops": "1.*"
