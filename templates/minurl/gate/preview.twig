@@ -15,10 +15,10 @@
         <h3>The Original URL</h3>
         <div class="row">
             <div class="form-group col-md-12">
-                <input type="text" class="form-control input-lg" disabled value="{{ url.url }}" style="cursor: pointer"/>
+                <input type="text" class="form-control input-lg url-input" disabled value="{{ url.url }}"/>
             </div>
         </div>
-        <div class="row">
+        <div class="preview-go-button-wrap row">
             <div class="col-md-8 col-md-offset-2">
                 {% if (safe) %}
                 <a class="btn btn-primary btn-lg btn-block" href="{{ url.url }}">

@@ -90,14 +90,15 @@ class UrlModel extends Model
 	 */
 	public function getMatchedUrl(Data $data)
 	{
-		if ($data->password || $data->custom || $data->expired || $data->preview)
+		if ($data->password || $data->alias || $data->expired || $data->preview)
 		{
 			return false;
 		}
 
 		$conds = array(
 			'url' => $data->url,
-			'expired > ' . $this->db->q((string) new DateTime) . ' OR expired = "0000-00-00 00:00:00"'
+			'(expired >= ' . $this->db->q((string) new DateTime) . ' OR expired = "0000-00-00 00:00:00")',
+			'alias = NULL'
 		);
 
 		return $this->mapper->findOne($conds, 'id DESC')->uid;

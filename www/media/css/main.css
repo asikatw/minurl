@@ -1,0 +1,56 @@
+/**
+ * Part of minurl project. 
+ *
+ * @copyright  Copyright (C) 2014 {ORGANIZATION}. All rights reserved.
+ * @license    GNU General Public License version 2 or later;
+ */
+
+/* GLOBAL */
+.url-input.form-control[disabled]
+{
+	cursor: auto;
+}
+
+/* INDEX */
+.form-buttons
+{
+	margin-top: 50px;
+}
+
+#entryForm .form-horizontal
+{
+	margin-top: 40px;
+}
+
+#entryForm .form-horizontal label
+{
+	text-align: left;
+}
+
+#entryForm .form-horizontal .checkbox
+{
+	margin-bottom: 20px;
+	font-size: 1.3em;
+	text-align: left;
+}
+
+.pika-button.pika-day:hover
+{
+	background-color: #999;
+}
+
+/* Prwview */
+.preview-go-button-wrap
+{
+	margin-top: 30px;
+}
+
+.footer
+{
+	margin-top: 30px;
+}
+
+.preview-go-button-wrap .alert-danger .btn-danger
+{
+	margin-top: 20px;
+}

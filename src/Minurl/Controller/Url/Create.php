@@ -8,6 +8,8 @@
 
 namespace Minurl\Controller\Url;
 
+use Joomla\Http\HttpFactory;
+use Joomla\Uri\Uri;
 use Minurl\Helper\PasswordHelper;
 use Minurl\Model\UrlModel;
 use Windwalker\Controller\AbstractController;
@@ -23,10 +25,8 @@ class Create extends AbstractController
 	/**
 	 * Execute the controller.
 	 *
+	 * @throws \Exception
 	 * @return  mixed Return executed result.
-	 *
-	 * @throws  \LogicException
-	 * @throws  \RuntimeException
 	 */
 	public function execute()
 	{
@@ -38,27 +38,42 @@ class Create extends AbstractController
 
 		try
 		{
-			if (!$data->url)
+			if (!trim($data->url))
 			{
 				throw new \RuntimeException('No URL');
 			}
 
+			// Normalise
+			$data->url = $this->normalise($data->url);
+
+			// Check Alias
 			if ($model->aliasExists($data))
 			{
 				throw new \RuntimeException('This custom URL has been used.');
 			}
 
+			// Find exists URL
 			if ($uid = $model->getMatchedUrl($data))
 			{
 				$this->toResult($uid);
 			}
 
+			// Encode password
 			if ($data->password)
 			{
 				$data->password = PasswordHelper::create($data->password);
 			}
 
+			// Do save
 			$model->save($data);
+
+			// Pre load thumbnail
+			if ($data->preview)
+			{
+				$http = HttpFactory::getHttp();
+
+				$http->get('http://s.wordpress.com/mshots/v1/' . urlencode($data->url));
+			}
 		}
 		catch (\Exception $e)
 		{
@@ -85,6 +100,25 @@ class Create extends AbstractController
 	protected function toResult($uid)
 	{
 		$this->app->redirect($this->app->get('uri.base.path') . 'success/' . $uid);
+	}
+
+	/**
+	 * normalise
+	 *
+	 * @param string $url
+	 *
+	 * @return  string
+	 */
+	protected function normalise($url)
+	{
+		$uri = new Uri($url);
+
+		if (!$uri->getScheme())
+		{
+			$uri->setScheme('http');
+		}
+
+		return (string) $uri;
 	}
 }
  

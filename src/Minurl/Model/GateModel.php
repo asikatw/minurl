@@ -54,7 +54,12 @@ class GateModel extends Model
 	{
 		$query = $this->db->getQuery(true);
 
-		return $this->mapper->findOne(array($query->format('uid = %q OR alias = %q', $pk, $pk)));
+		return $this->mapper->findOne(
+			array(
+				$query->format('(uid = %q OR alias = %q)', $pk, $pk),
+				$query->format('(expired = "0000-00-00 00:00:00" OR expired >= %q)', (string) new DateTime)
+			)
+		);
 	}
 
 	/**

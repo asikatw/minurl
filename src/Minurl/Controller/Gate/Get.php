@@ -9,6 +9,7 @@
 namespace Minurl\Controller\Gate;
 
 use Formosa\Application\WebApplication;
+use Formosa\Factory;
 use Formosa\Utilities\Queue\Priority;
 use Minurl\Helper\PasswordHelper;
 use Minurl\Model\GateModel;
