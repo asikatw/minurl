@@ -1,3 +1,4 @@
 '/': 'Minurl\Controller\Url\'
+'recent': 'Minurl\Controller\Recent\'
 ':uid': 'Minurl\Controller\Gate\'
 'success/:uid': 'Minurl\Controller\Success\'
