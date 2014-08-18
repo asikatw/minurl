@@ -39,7 +39,7 @@ class Base62Helper
 	public static function encode($int)
 	{
 		// return Base62::convert(static::obfuscate($int), 10, 62);
-		
+
 		return base_convert(static::obfuscate($int), 10, 36);
 	}
 
