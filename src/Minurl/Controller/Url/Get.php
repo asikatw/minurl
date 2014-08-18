@@ -33,7 +33,11 @@ class Get extends AbstractController
 
 		if ($create)
 		{
-			$this->input->set('entry', array('url' => $create));
+			$entry = $this->input->getVar('entry', array());
+
+			$entry['url'] = $create;
+
+			$this->input->set('entry', $entry);
 
 			$ctrl = new Create($this->input, $this->app);
 
