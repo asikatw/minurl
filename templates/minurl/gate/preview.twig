@@ -11,12 +11,18 @@
 {% endblock %}
 
 {% block main_body %}
+    <style>
+        .masthead
+        {
+            position: static;
+        }
+    </style>
     <div id="preview-wrap" class="row">
-        <h1>URL Preview</h1>
+        <h1>{{ meta.title ? : 'URL Preview' }}</h1>
 
         <div class="preview-img-wrap row">
             <div class="col-md-8 col-md-offset-2">
-                <img style="max-width: 100%; border-radius: 5px" src="http://s.wordpress.com/mshots/v1/{{ url.url|url_encode }}" alt="Preview" />
+                <img style="max-width: 90%; border-radius: 5px" src="http://s.wordpress.com/mshots/v1/{{ url.url|url_encode }}" alt="Preview" />
             </div>
         </div>
         
