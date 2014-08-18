@@ -38,7 +38,9 @@ class Base62Helper
 	 */
 	public static function encode($int)
 	{
-		return Base62::convert($int + static::$offset, 10, 62);
+		// return Base62::convert(static::obfuscate($int), 10, 62);
+		
+		return base_convert(static::obfuscate($int), 10, 36);
 	}
 
 	/**
@@ -50,7 +52,9 @@ class Base62Helper
 	 */
 	public static function decode($int)
 	{
-		return Base62::convert($int, 62, 10) - static::$offset;
+		// return static::unObfuscate(Base62::convert($int, 62, 10));
+
+		return static::unObfuscate(base_convert($int, 36, 10));
 	}
 
 	/**
