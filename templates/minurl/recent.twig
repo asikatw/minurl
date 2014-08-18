@@ -1,0 +1,47 @@
+{% extends 'cover.twig' %}
+
+{% block siteTitle %}Recent Urls | Minur.co{% endblock %}
+
+{% block meta %}
+    <meta property="og:url" content="{{ uri.base.request }}">
+    <meta property="og:site_name" content="Minur.co">
+    <meta property="og:title" content="Recent Urls | Minur.co">
+    <meta property="og:description" content="Recent urls.">
+{% endblock %}
+
+
+{% block main_body %}
+    <style>
+        .masthead
+        {
+            position: static;
+        }
+    </style>
+    <div id="recent-wrap" class="row">
+        <h1>Recent URLs</h1>
+
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for url in urls %}
+                    <tr>
+                        <td class="text-left">
+                            <a href="{{ url.shortUrl }}">
+                                {{ url.title ? : url.shortUrl }}
+                            </a>
+                        </td>
+                        <td class="text-left"><span class="text-muted">{{ url.desc }}</span></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

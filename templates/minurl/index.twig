@@ -3,6 +3,7 @@
 {% block siteTitle %}Another modern URL shorten service. | Minur.co{% endblock %}
 
 {% block meta %}
+
     <meta property="og:url" content="{{ uri.base.full }}">
     <meta property="og:site_name" content="Minur.co">
     <meta property="og:title" content="Minur.co | Another modern & secure URL shorten service.">
@@ -11,13 +12,11 @@
 {% endblock %}
 
 {% block style %}
-{{ parent() }}
-    <link rel="stylesheet" href="{{ uri.media.path }}js/pickday/css/pikaday.css" />
+{{ parent() }}    <link rel="stylesheet" href="{{ uri.media.path }}js/pickday/css/pikaday.css" />
 {% endblock %}
 
 {% block script %}
-    {{ parent() }}
-    <script src="{{ uri.media.path }}js/moment.js"></script>
+{{ parent() }}<script src="{{ uri.media.path }}js/moment.js"></script>
     <script src="{{ uri.media.path }}js/pickday/pikaday.js"></script>
 {% endblock %}
 
@@ -50,7 +49,7 @@
 
                <div class="checkbox">
                    <label>
-                       <input type="checkbox" name="entry[preview]" class="" value="1"> Preview and secure
+                       <input type="checkbox" name="entry[preview]" class="" value="1" checked> Preview and secure
                    </label>
                </div>
 
@@ -94,6 +93,12 @@
                    <button class="btn btn-primary btn-block btn-lg">Short this URL</button>
                </div>
            </div>
+
+           <div style="clear: both;"></div>
        </form>
+
+       <div class="footer" style="margin-top: 100px;">
+           <a href="{{ uri.base.path }}recent"><span class="text-muted">Recent urls</span></a>
+       </div>
    </div>
 {% endblock %}

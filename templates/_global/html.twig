@@ -10,13 +10,11 @@
     {% endblock %}
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    {% block style %}
-    {% endblock %}
+    {% block style %}{% endblock %}
 
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    {% block script %}
-    {% endblock %}
+    {% block script %}{% endblock %}
 
 </head>
 <body>
@@ -64,5 +62,7 @@
         </div>
     </div>
     {% endblock %}
+
+{% include 'analytics.twig' %}
 </body>
 </html>
