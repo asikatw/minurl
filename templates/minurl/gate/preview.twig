@@ -22,7 +22,9 @@
 
         <div class="preview-img-wrap row">
             <div class="col-md-8 col-md-offset-2">
-                <img style="max-width: 90%; border-radius: 5px" src="http://s.wordpress.com/mshots/v1/{{ url.url|url_encode }}" alt="Preview" />
+                <img id="loading-preview" style="max-width: 90%; border-radius: 5px" src="{{ uri.media.path }}images/loading.gif" alt="Preview" />
+                <img id="real-preview" style="max-width: 90%; border-radius: 5px; display: none;" src="{{ thumb }}" alt="Preview"
+                    onload="$('#loading-preview').hide();$(this).show();"/>
             </div>
         </div>
         
