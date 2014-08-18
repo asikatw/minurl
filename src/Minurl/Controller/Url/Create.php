@@ -8,8 +8,10 @@
 
 namespace Minurl\Controller\Url;
 
+use Joomla\Http\HttpFactory;
 use Joomla\Uri\Uri;
 use Minurl\Helper\PasswordHelper;
+use Minurl\Helper\ThumbHelper;
 use Minurl\Model\UrlModel;
 use Windwalker\Controller\AbstractController;
 use Windwalker\Data\Data;
@@ -68,6 +70,16 @@ class Create extends AbstractController
 
 			// Do save
 			$model->save($data);
+
+			// Thumb
+			/*
+			if ($data->preview)
+			{
+				$http = HttpFactory::getHttp(null, 'Curl');
+
+				$http->head(ThumbHelper::get($data->url));
+			}
+			*/
 		}
 		catch (\Exception $e)
 		{
