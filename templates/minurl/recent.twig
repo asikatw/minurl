@@ -33,10 +33,10 @@
                     <tr>
                         <td class="text-left">
                             <a href="{{ url.shortUrl }}">
-                                {{ url.title ? : url.shortUrl }}
+                                {{ url.title | raw ? : url.shortUrl | raw }}
                             </a>
                         </td>
-                        <td class="text-left"><span class="text-muted">{{ url.desc }}</span></td>
+                        <td class="text-left"><span class="text-muted">{{ url.desc | raw }}</span></td>
                     </tr>
                 {% endfor %}
                 </tbody>

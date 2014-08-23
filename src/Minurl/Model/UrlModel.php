@@ -117,6 +117,13 @@ class UrlModel extends Model
 		return $this->mapper->findOne($conds, 'id DESC')->uid;
 	}
 
+	/**
+	 * getMeta
+	 *
+	 * @param string $url
+	 *
+	 * @return  array
+	 */
 	public function getMeta($url)
 	{
 		$meta = array();

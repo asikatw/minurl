@@ -10,6 +10,7 @@ namespace Minurl\View\Recent;
 
 use Formosa\Factory;
 use Formosa\View\TwigHtmlView;
+use Minurl\Helper\HtmlHelper;
 use Windwalker\Registry\Registry;
 use Windwalker\Utilities\String\String;
 
@@ -37,7 +38,10 @@ class RecentHtmlView extends TwigHtmlView
 			$url->params = new Registry($url->params);
 
 			$url->title = String::substr($url->params['meta.title'], 0, 40);
+			$url->title = HtmlHelper::escape($url->title);
+
 			$url->desc = String::substr($url->params['meta.desc'], 0, 50);
+			$url->desc = HtmlHelper::escape($url->desc);
 		}
 	}
 }

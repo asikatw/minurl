@@ -1,12 +1,12 @@
 {% extends 'cover.twig' %}
 
-{% block siteTitle %}{{ meta.title }} | Minur.co{% endblock %}
+{% block siteTitle %}{{ meta.title | raw }} | Minur.co{% endblock %}
 
 {% block meta %}
     <meta property="og:url" content="{{ uri.base.request }}">
     <meta property="og:site_name" content="Minur.co">
-    <meta property="og:title" content="{{ meta.title }} | Minur.co">
-    <meta property="og:description" content="{{ meta.desc }}">
+    <meta property="og:title" content="{{ meta.title | raw }} | Minur.co">
+    <meta property="og:description" content="{{ meta.desc | raw }}">
     <meta property="og:image" content="http://s.wordpress.com/mshots/v1/{{ url.url|url_encode }}">
 {% endblock %}
 
@@ -18,7 +18,7 @@
         }
     </style>
     <div id="preview-wrap" class="row">
-        <h1>{{ meta.title ? : 'URL Preview' }}</h1>
+        <h1>{{ meta.title | raw ? : 'URL Preview' }}</h1>
 
         <div class="preview-img-wrap row">
             <div class="col-md-8 col-md-offset-2">
